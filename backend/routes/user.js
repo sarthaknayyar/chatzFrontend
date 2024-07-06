@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
-const { setUser } = require('../authservice');
+const { setUser, getUser } = require('../authservice');
+
 
 router.post('/signup', async (req, res)=>{
     const hashPassword = bcrypt.hashSync(req.body.password, 10);
@@ -32,6 +33,13 @@ router.post('/login', async (req, res)=>{
     const token =  setUser(user);
     res.cookie("token", token);
     return res.status(200).json({token});
+})
+
+router.get('/:token', async (req, res)=>{
+    const token = req.params.token;
+    const user = getUser(token);
+    console.log(user.user);
+    return res.json(user.user);
 })
 
 module.exports = router;

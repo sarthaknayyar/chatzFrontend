@@ -7,8 +7,8 @@ function setUser(user){
 }
 
 function getUser(token){
-    const user = jwt.verify(token, secretkey);
-    return user;
+    if(!token) return null;
+    return jwt.verify(token, secretkey);
 }
 
 module.exports = {setUser,getUser};
