@@ -4,11 +4,14 @@ const mongoose = require('mongoose');
 const port = 3000;
 const {connectDB} = require('./connection');
 const userRouter = require('./routes/user');
+const { checkLoggedin } = require('../../blog/backend/middlewares/auth');
 
 connectDB("mongodb://localhost:27017/chatKro");
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
+app.use(checkLoggedin);
 
 app.use('/user',userRouter);
 
