@@ -45,7 +45,7 @@ router.get('/token/:token', async (req, res)=>{
 router.get("/username/:username", async (req, res)=>{
     const username = req.params.username;
     const user = await User.findOne({username: username});
-    console.log("hi"+user);
+    // console.log("hi"+user);
     if(!user){
         return res.json({message: "User not found"});
     }
