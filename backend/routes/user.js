@@ -35,7 +35,7 @@ router.post('/login', async (req, res)=>{
     return res.status(200).json({token});
 })
 
-router.get('/:token', async (req, res)=>{
+router.get('/token/:token', async (req, res)=>{
     const token = req.params.token;
     const user = getUser(token);
     // console.log(user.user);
