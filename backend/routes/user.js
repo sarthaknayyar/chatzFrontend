@@ -52,4 +52,9 @@ router.get("/username/:username", async (req, res)=>{
     return res.json(user);
 })
 
+router.get('/allusers/contact', async (req, res)=>{
+    const users = await User.find({});
+    return res.json(users);
+})
+
 module.exports = router;
