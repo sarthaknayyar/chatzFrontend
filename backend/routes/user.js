@@ -14,9 +14,9 @@ router.post('/signup', async (req, res)=>{
         // console.log(user);
 
         user.save().then((data)=>{
-            res.json(data);
+           return res.status(200).json(data);
         }).catch((error)=>{
-            res.json(error);
+           return res.status(400).json(error);
         });
 })
 
@@ -24,7 +24,7 @@ router.post('/login', async (req, res)=>{
     const email = req.body.email;
     const user = await User.findOne({email});
     if(!user){
-        return res.json({message: "User not found"});
+        return res.status(404).json({message: "User not found"});
     }
     const validPassword = bcrypt.compareSync(req.body.password, user.password);
     if(!validPassword){
@@ -38,8 +38,18 @@ router.post('/login', async (req, res)=>{
 router.get('/:token', async (req, res)=>{
     const token = req.params.token;
     const user = getUser(token);
-    console.log(user.user);
+    // console.log(user.user);
     return res.json(user.user);
+})
+
+router.get("/username/:username", async (req, res)=>{
+    const username = req.params.username;
+    const user = await User.findOne({username: username});
+    console.log("hi"+user);
+    if(!user){
+        return res.json({message: "User not found"});
+    }
+    return res.json(user);
 })
 
 module.exports = router;

@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const secretkey = "sarthak";
 
 function setUser(user){
-    const token = jwt.sign({user},secretkey, {expiresIn: '2h'});
+    const token = jwt.sign({user},secretkey);
     return token;
 }
 
